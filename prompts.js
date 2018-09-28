@@ -1,51 +1,68 @@
-function jsonFormat(info){
+var jsonFormat = function(info){
     var jsonReg = /(\\)|\/\/.*$/mg;
-    return JSON.parse(info.replace(jsonReg,''));
-}
 
+    return JSON.parse(info.replace(jsonReg, ''));
+};
 
 
 module.exports = [
     {
-        name:'operation',
-        type: "checkbox",
+        name: 'way',
+        type: 'list',
+        default: 'initial',
+        choices: [
+            {
+                name: 'Initial project',
+                value: 'initial'
+            },
+            {
+                name: 'Add a page',
+                value: 'page'
+            }
+        ]
+    },
+    {
+        name: 'fileName',
+        type: 'input',
+        message: 'Input the html file name:',
+        validate: input => input !== '' ? true : 'html file name is required.'
+    },
+    {
+        name: 'operation',
+        type: 'checkbox',
         message: 'What content are included ？',
         choices: [
             {
-                name: "1) table",
-                value: "table",
+                name: '1) table',
+                value: 'table',
                 checked: true
             },
             {
-                name: "2) add operation",
-                value: "add"
+                name: '2) add operation',
+                value: 'add'
             },
             {
-                name: "3) delete operation",
-                value: "delete"
+                name: '3) delete operation',
+                value: 'delete'
             },
             {
-                name: "4) edit operation",
-                value: "edit"
+                name: '4) edit operation',
+                value: 'edit'
             },
             {
-                name: "5) search operation",
-                value: "search"
+                name: '5) search operation',
+                value: 'search'
             },
             {
-                name: "6) view operation",
-                value: "view"
+                name: '6) view operation',
+                value: 'view'
             },
             {
-                name: "7) export",
-                value: "export"
+                name: '7) export',
+                value: 'export'
             }
-            // {
-            //     name: "7) more operation",
-            //     value: "more"
-            // }
         ]
-    },
+    }
     // {
     //     when: "operation.more",
     //     type: "checkbox",
@@ -168,3 +185,4 @@ module.exports = [
     //     }
     // }
 ]
+;
