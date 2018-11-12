@@ -10,9 +10,10 @@ module.exports = (api, options) => {
 
         htmlFile.push(options.fileName + '.html');
         api.render({
+            './src/router/page-name.js': './templates/src/router/page-name.js',
+            './src/store/page-name.js': './templates/src/store/page-name.js',
             './public/page-name.html': './templates/public/page-name.html',
             './src/page/page-name/main.js': './templates/src/page/page-name/main.js',
-            './src/page/page-name/router.js': './templates/src/page/page-name/router.js',
             './src/page/page-name/component/App.vue': './templates/src/page/page-name/component/App.vue',
             './src/index.html': './templates/src/index.html'
         }, {fileName: htmlFile});
