@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid"><% if(options.operation.indexOf('search') !== -1){ %>
+    <!-- <div class="container-fluid"><% if(options.operation.indexOf('search') !== -1){ %>
         <search :searchInfo="searchInfo" :loading="loading" @search="search"></search><% } %><% if(options.operation.indexOf('add') !== -1){ %>
         <div class="clearfix mb10">
             <router-link :to="{path:'/app/add'}" class="pull-right btn btn-primary"><i class="glyphicon glyphicon-plus"></i>添加</router-link>
@@ -19,10 +19,15 @@
         </adc-table>
         <page form :curr-page="pageCfg.PageIndex" :page-len="pageCfg.PageSize" :total-num="count" @change-page="changePage"></page>
         <router-view @refresh="refresh"></router-view>
-    </div>
+    </div> -->
+    <div><%= pageName %></div>
 </template>
 
-<script><% if(options.operation.indexOf('search') !== -1){ %>
+<script>
+export default {
+
+}
+/* <% if(options.operation.indexOf('search') !== -1){ %>
 import search from './search';<% } %>
 import mixin from 'common/loadMixin';
 import Interface from 'common/interface';
@@ -118,5 +123,5 @@ export default {
         page<% if(options.operation.indexOf('search') !== -1){ %>,
         search<% } %>
     }
-};
+}; */
 </script>
