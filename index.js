@@ -3,7 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (api) => {
-    var files = fs.readdirSync(api.resolve('src/views'));
+    var files = fs.readdirSync(api.resolve('public'));
     var htmlTemplate = files.filter((f)=>{
         return f.indexOf('.html') !== -1;
     });
@@ -28,7 +28,7 @@ module.exports = (api) => {
     htmlTemplate.map((file)=>{
         var filename = file.split('.')[0];
         var options = {
-            template: api.resolve('src/views') + '/' + file,
+            template: api.resolve('public') + '/' + file,
             inject: false,
             chunks: [filename],
             minify: false
@@ -39,7 +39,7 @@ module.exports = (api) => {
             
             options.src = server;
             options.title = filename;
-            options.filename = path.resolve(`dist/html/${text[env]}/view/${file}`);
+            options.filename = path.resolve(`dist/html/${text[env]}/${file}`);
             htmlPlugins.push(new HtmlWebpackPlugin(options));
         });
     });
@@ -49,9 +49,15 @@ module.exports = (api) => {
         webpackConfig.plugins.delete('named-chunks');
         webpackConfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
         htmlTemplate.forEach(filename => {
-            webpackConfig.plugins.delete(`html-${filename}`);
-            webpackConfig.plugins.delete(`prefetch-${filename}`);
-            webpackConfig.plugins.delete(`preload-${filename}`);
+            webpackConfig.plugins.delete(`html-${filename.split('.')[0]}`);
+            webpackConfig.plugins.delete(`prefetch-${filename.split('.')[0]}`);
+            webpackConfig.plugins.delete(`preload-${filename.split('.')[0]}`);
+        });
+        webpackConfig.plugin('copy').tap(params=>{
+            htmlTemplate.forEach(filename => {
+                params[0][0].ignore.push(filename);
+            });
+            return params;
         });
     });
     api.configureWebpack(webpackConfig => {

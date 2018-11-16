@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports = (api, options) => {
     if (options.fileName){
-        const files = fs.readdirSync(api.resolve('src/views'));
+        const files = fs.readdirSync(api.resolve('public'));
         const htmlFile = files.filter((f) => {
             return f.indexOf('.html') !== -1;
         });
@@ -12,7 +12,7 @@ module.exports = (api, options) => {
         api.render({
             './src/router/page-name.js': './templates/src/router/page-name.js',
             './src/store/page-name.js': './templates/src/store/page-name.js',
-            './src/views/page-name.html': './templates/src/views/page-name.html',
+            './public/page-name.html': './templates/public/page-name.html',
             './src/page/page-name/main.js': './templates/src/page/page-name/main.js',
             './src/page/page-name/component/App.vue': './templates/src/page/page-name/component/App.vue',
             './src/index.html': './templates/src/index.html'
@@ -40,8 +40,8 @@ module.exports = (api, options) => {
         });
 
         api.onCreateComplete(()=>{
-            fs.rename(`${api.resolve('src/views')}/page-name.html`,
-                `${api.resolve('src/views')}/${options.fileName}.html`); 
+            fs.rename(`${api.resolve('public')}/page-name.html`,
+                `${api.resolve('public')}/${options.fileName}.html`); 
             fs.rename(`${api.resolve('src')}/page/page-name`,
                 `${api.resolve('src')}/page/${options.fileName}`);   
             fs.rename(`${api.resolve('src')}/router/page-name.js`,
